@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Letz chat</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+body {
+    text-align:center;
+}
+h2,input,button,h1,h4,h3,h5,h6 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+        </style>
+    </head>
+    <body>
+        <h1 id = "Welcome">-</h1>
+        <br>
+        <br>
+        <button onclick = "c()" class = "btn btn-info">Menu</button>
+        <br>
+        <h4 id = "menu">     
+    
+        </h4>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyDaGspMMowJA1XcKCV502gbph_VeT9mgSo",
+              authDomain: "letschat-d3f44.firebaseapp.com",
+              databaseURL: "https://letschat-d3f44-default-rtdb.firebaseio.com",
+              projectId: "letschat-d3f44",
+              storageBucket: "letschat-d3f44.appspot.com",
+              messagingSenderId: "1061774008972",
+              appId: "1:1061774008972:web:d7c6224c564bd7c760d1a9"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+          </script>
+        <script>
+function getData() {firebase.database().ref("/").on('value',
+function(snapshot) {document.getElementById("output").innerHTML =
+"";snapshot.forEach(function(childSnapshot) {childKey = childSnapshot.key;
+Room_names = childKey;
+//Start code
+
+//End code
+});});}
+getData();
+
+            var ChatName;
+            var menu = 0;
+            var user = localStorage.getItem("User");
+document.getElementById("Welcome").innerHTML = "Welcome, " + user + "!";
+function Menu()
+{
+    switch (menu)
+    {
+        case 0:
+            document.getElementById("menu").innerHTML = "";
+        break;
+
+        case 1:
+            document.getElementById("menu").innerHTML = "<button onclick = 'c3()' class = 'btn btn-primary'>Add a chat</button><br><br><button onclick = 'c4()' class = 'btn btn-primary'>Go to trending chats</button>";
+        break;
+
+        case 3:
+            document.getElementById("menu").innerHTML = "<p>Make the chat!</p><br><br><input id = 'chatName' type = 'text' placeholder = 'Chat-name'><br><br><button id = 'Chat' onclick= 'AC()' class = 'btn btn-primary'>Create the chat!</button>";
+        break;
+
+        case 4:
+            document.getElementById("menu").innerHTML = "<h4>#Trending chats</h4><br><br><h4 id = 'Chats'></h4>";
+loadTrending();
+        break;
+    }
+}
+function loadTrending() {
+    getData();
+    document.getElementById("Chats").innreHTML = "<h4>"+Room_names+"</h4>";
+}
+function c() 
+{
+    if (menu == 1)
+    {
+        menu = 0;
+    }
+    else
+    {
+        menu = 1;
+    }
+
+    Menu();
+}
+function c3() {
+menu =3;
+    Menu();
+}
+function c4() {
+   menu = 4;
+    Menu();
+}
+function AC() {
+
+    ChatName = document.getElementById("chatName").value;
+
+    firebase.database().ref("/").child(ChatName).update({
+       purpose:"Adding a chat." 
+   });
+console.log("Added chat");
+
+}
+
+        </script>
+    </body>
+</html>
